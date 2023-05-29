@@ -2,6 +2,9 @@ package com.devsuperior.dsmeta.dto;
 
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.entities.Seller;
+import com.devsuperior.dsmeta.projection.SummaryMinProjection;
+
+import java.util.List;
 
 public class SummaryDTO {
 
@@ -14,9 +17,9 @@ public class SummaryDTO {
         this.total = total;
     }
 
-    public SummaryDTO(Seller entity) {
-        this.sellerName = entity.getName();
-        this.total = entity.getSales().stream().mapToDouble(Sale::getAmount).sum();
+    public SummaryDTO(SummaryMinProjection proj) {
+        sellerName = proj.getName();
+        total = proj.getTotal();
     }
 
     public String getSellerName() {

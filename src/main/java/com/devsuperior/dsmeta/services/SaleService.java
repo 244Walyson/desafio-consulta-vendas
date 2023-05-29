@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.devsuperior.dsmeta.dto.ReportDTO;
 import com.devsuperior.dsmeta.dto.SummaryDTO;
 import com.devsuperior.dsmeta.entities.Seller;
+import com.devsuperior.dsmeta.projection.SummaryMinProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public class SaleService {
 	}
 
 	public List<SummaryDTO> getSummary(LocalDate dateMin, LocalDate dateMax, String name) {
-		return repository.getSummary(dateMin, dateMax, name);
+		List<SummaryMinProjection> proj = repository.getSummary(dateMin, dateMax, name);
+		return proj.stream().map(SummaryDTO::new).toList();
 	}
 }
